@@ -3,7 +3,7 @@
 match.sh 실행하면 자동 채점
 
 ``` bash
-$./match.sh <br/> 
+$./match.sh
 Enter week and problem number (eg. second week's problem B Input: 2 2): [주차입력] [문제번호입력(A=1, B=2)] 
 correct				# 맞았을 경우 
 $ 
