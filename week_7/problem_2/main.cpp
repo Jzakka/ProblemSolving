@@ -1,25 +1,33 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <deque>
+#include <unordered_map>
 
 using namespace std;
 
 int getMax(string s) {
+    vector<int> prefixSum(s.length()+1);
+    unordered_map<int, int> first;
+    first[0] = 0;
     int strLen = s.length();
-    int window = strLen - 1;
+    int sum = 0;
+    for (int i = 0; i < strLen; i++) {
+        if(s.at(i)=='1')
+            sum++;
+        else
+            sum--;
+
+        if(first.find(sum)==first.end())
+            first[sum] = i + 1;
+        prefixSum[i + 1] = sum;
+    }
 
     int maxLen = 0;
-    for (int i = 0; i < strLen; i++) {
-        int sum = 0;
-        int tempLen = 0;
-        for (int j = i; j < strLen; j++) {
-            if (s.at(j) == '1') sum++;
-            else sum--;
-            if (sum == 0 && j - i + 1 > tempLen) tempLen = j - i + 1;
-        }
-        if (maxLen < tempLen) maxLen = tempLen;
+    for (int i=1;i<=strLen;i++) {
+        int tmp = i - first[prefixSum[i]];
+        maxLen = max(maxLen, tmp);
     }
+
     return maxLen;
 }
 
